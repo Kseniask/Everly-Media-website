@@ -1,0 +1,874 @@
+<title>Everly Media</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560&family=Archivo:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fbfaf9;
+    --surface:#f4f2ed;
+    --surface-2:#eeebe3;
+    --ink:#16150f;
+    --ink-soft:#5b5748;
+    --ink-faint:#8c8672;
+    --accent:#8b6f47;
+    --accent-ink:#6d5738;
+    --on-accent:#fbfaf9;
+    --line:#e6e1d6;
+    --frame-a:#fbf3e3;
+    --frame-b:#f3e6cd;
+    --frame-line:#e6d9b8;
+    --frame-ink:#4a3f27;
+    --shadow: 0 1px 0 rgba(22,21,15,0.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#121109;
+      --surface:#1a1811;
+      --surface-2:#211e15;
+      --ink:#f3efe6;
+      --ink-soft:#b8af9c;
+      --ink-faint:#8a8272;
+      --accent:#cbab6e;
+      --accent-ink:#e0c084;
+      --on-accent:#1c1710;
+      --line:#2b281f;
+      --frame-a:#2a2010;
+      --frame-b:#3a2c15;
+      --frame-line:#4a3a1e;
+      --frame-ink:#f1dfae;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#121109;
+    --surface:#1a1811;
+    --surface-2:#211e15;
+    --ink:#f3efe6;
+    --ink-soft:#b8af9c;
+    --ink-faint:#8a8272;
+    --accent:#cbab6e;
+    --accent-ink:#e0c084;
+    --on-accent:#1c1710;
+    --line:#2b281f;
+    --frame-a:#2a2010;
+    --frame-b:#3a2c15;
+    --frame-line:#4a3a1e;
+    --frame-ink:#f1dfae;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.001ms !important; transition-duration:0.001ms !important;}
+  }
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:"Archivo",-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    padding-inline:20px;
+  }
+  h1,h2,h3{
+    font-family:"Fraunces",Georgia,"Times New Roman",serif;
+    font-weight:440;
+    line-height:1.06;
+    margin:0;
+    text-wrap:balance;
+    color:var(--ink);
+  }
+  p{margin:0;}
+  a{color:inherit;}
+  .wrap{max-width:1180px; margin-inline:auto;}
+  .measure{max-width:60ch;}
+
+  .eyebrow{
+    font-family:"Space Mono",monospace;
+    font-size:12px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--accent-ink);
+  }
+
+  /* ---------- Nav ---------- */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:color-mix(in srgb, var(--bg) 88%, transparent);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav{
+    max-width:1180px; margin-inline:auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:18px;
+    gap:24px;
+  }
+  .wordmark{
+    font-family:"Fraunces",serif;
+    font-size:19px;
+    letter-spacing:0.02em;
+    font-weight:440;
+    white-space:nowrap;
+  }
+  .wordmark small{
+    display:block;
+    font-family:"Space Mono",monospace;
+    font-size:10px;
+    letter-spacing:0.22em;
+    color:var(--ink-faint);
+    font-weight:400;
+    margin-top:2px;
+  }
+  nav.links{
+    display:flex; gap:28px; align-items:center;
+    font-size:14px;
+  }
+  nav.links a{
+    text-decoration:none;
+    color:var(--ink-soft);
+    position:relative;
+    padding-block:4px;
+  }
+  nav.links a:hover, nav.links a:focus-visible{ color:var(--ink); }
+  nav.links a::after{
+    content:"";
+    position:absolute; left:0; right:100%; bottom:0;
+    height:1px; background:var(--accent);
+    transition:right 0.25s ease;
+  }
+  nav.links a:hover::after, nav.links a:focus-visible::after{ right:0; }
+  .nav-cta{
+    border:1px solid var(--ink);
+    padding:9px 16px;
+    font-size:13px;
+    text-decoration:none;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ background:var(--accent-ink); border-color:var(--accent-ink); color:var(--on-accent); }
+  .nav-toggle{ display:none; }
+
+  /* ---------- Letterbox rule ---------- */
+  .letterbox{
+    height:3px;
+    background:linear-gradient(90deg, transparent, var(--accent) 20%, var(--accent) 80%, transparent);
+    opacity:0.55;
+  }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding-block:64px 0;
+  }
+  .hero-grid{
+    display:grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap:56px;
+    align-items:center;
+    padding-block-end:40px;
+  }
+  .hero h1{
+    font-size:clamp(2.4rem, 4.6vw, 4rem);
+    margin-block:18px 22px;
+  }
+  .hero .lede{
+    color:var(--ink-soft);
+    font-size:17px;
+    max-width:44ch;
+    margin-block-end:30px;
+  }
+  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; align-items:center; }
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    text-decoration:none;
+    font-size:14px;
+    padding:13px 22px;
+    border:1px solid var(--ink);
+    color:var(--ink);
+  }
+  .btn.primary{ background:var(--accent-ink); color:var(--on-accent); border-color:var(--accent-ink); }
+  .btn.primary:hover{ background:var(--accent); border-color:var(--accent); }
+  .btn.ghost:hover{ background:var(--surface); }
+
+  .meta-line{
+    font-family:"Space Mono",monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+  }
+
+  /* ---------- Film frame (real-photo video tile) ---------- */
+  .frame{
+    position:relative;
+    display:block;
+    aspect-ratio:16/10;
+    background-color:var(--frame-a);
+    background-size:cover;
+    background-position:center;
+    border:1px solid var(--frame-line);
+    overflow:hidden;
+    isolation:isolate;
+    text-decoration:none;
+    transition:box-shadow 0.2s ease, transform 0.2s ease;
+  }
+  .frame::before{
+    content:"";
+    position:absolute; inset:0;
+    background:
+      linear-gradient(to top, rgba(10,8,4,0.62) 0%, rgba(10,8,4,0.05) 42%, transparent 60%),
+      linear-gradient(to bottom, rgba(10,8,4,0.35) 0%, transparent 26%);
+    pointer-events:none;
+  }
+  .frame:hover{ box-shadow:0 10px 28px -14px rgba(74,63,39,0.45); transform:translateY(-2px); }
+  .frame:hover .play{ background:var(--accent-ink); color:var(--on-accent); border-color:var(--accent-ink); }
+  .frame-video{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    background:#000;
+    display:block;
+    pointer-events:none;
+  }
+  .frame.is-playing .frame-video{ pointer-events:auto; }
+  .frame.is-playing::before{ opacity:0; transition:opacity 0.15s ease; }
+  .frame-overlay{
+    position:absolute; inset:0;
+    width:100%; height:100%;
+    padding:0; margin:0; border:0;
+    background:transparent;
+    cursor:pointer;
+    font:inherit;
+    color:inherit;
+    display:block;
+  }
+  .frame.is-playing .frame-overlay{ display:none; }
+  .frame-ended{
+    position:absolute; left:50%; top:50%;
+    transform:translate(-50%,-50%);
+    display:none;
+    align-items:center; justify-content:center;
+    white-space:nowrap;
+    font-family:"Space Mono",monospace;
+    font-size:11.5px; letter-spacing:0.08em; text-transform:uppercase;
+    color:#f4ecd8;
+    padding:12px 20px;
+    border:1px solid #f4ecd8;
+    border-radius:999px;
+    background:rgba(10,8,4,0.55);
+    backdrop-filter:blur(2px);
+    text-decoration:none;
+    z-index:2;
+    transition:background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .frame.is-ended .frame-ended{ display:inline-flex; }
+  .frame-ended:hover{ background:var(--accent-ink); color:var(--on-accent); border-color:var(--accent-ink); }
+  .frame .corner{
+    position:absolute; width:14px; height:14px;
+    border:1px solid #f4ecd8; opacity:0.75;
+  }
+  .frame .tl{ top:14px; left:14px; border-right:none; border-bottom:none; }
+  .frame .tr{ top:14px; right:14px; border-left:none; border-bottom:none; }
+  .frame .bl{ bottom:14px; left:14px; border-right:none; border-top:none; }
+  .frame .br{ bottom:14px; right:14px; border-left:none; border-top:none; }
+  .frame .play{
+    position:absolute; inset:0; margin:auto;
+    width:52px; height:52px;
+    border:1px solid #f4ecd8;
+    border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    color:#f4ecd8;
+    background:rgba(10,8,4,0.28);
+    backdrop-filter:blur(2px);
+    transition:background 0.2s ease, color 0.2s ease;
+  }
+  .frame .tc{
+    position:absolute; left:36px; top:15px;
+    font-family:"Space Mono",monospace;
+    font-size:11px; letter-spacing:0.08em;
+    color:#f4ecd8; opacity:0.9;
+  }
+  .frame .rec{
+    position:absolute; right:14px; top:14px;
+    font-family:"Space Mono",monospace;
+    font-size:10px; letter-spacing:0.14em;
+    color:#f4ecd8; opacity:0.85;
+    display:flex; align-items:center; gap:6px;
+  }
+  .frame .rec i{ width:6px; height:6px; border-radius:50%; background:#e8674a; display:block; }
+  .frame .cap{
+    position:absolute; left:0; right:0; bottom:0;
+    padding:10px 14px;
+    font-family:"Space Mono",monospace;
+    font-size:10.5px; letter-spacing:0.06em;
+    color:#f4ecd8; opacity:0.85;
+    text-align:center;
+  }
+  .hero .frame .cap{ bottom:auto; top:50%; margin-top:34px; }
+
+  /* ---------- Sections ---------- */
+  section{ padding-block:96px; border-top:1px solid var(--line); }
+  section:first-of-type{ border-top:none; }
+  .section-head{
+    display:flex; justify-content:space-between; align-items:baseline;
+    gap:24px; margin-block-end:48px; flex-wrap:wrap;
+  }
+  .section-head h2{ font-size:clamp(1.7rem,3vw,2.4rem); }
+
+  /* Work grid */
+  .work-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:28px;
+  }
+  .work-card h3{
+    font-size:19px; font-weight:500; font-family:"Archivo",sans-serif;
+    margin-block:16px 8px;
+  }
+  .work-card p{ color:var(--ink-soft); font-size:14.5px; }
+
+  /* About */
+  .about-grid{
+    display:grid;
+    max-width:720px;
+    margin-inline:auto;
+    text-align:center;
+  }
+  .about-grid blockquote{
+    margin:0;
+    font-family:"Fraunces",serif;
+    font-weight:440;
+    font-size:clamp(1.5rem,2.8vw,2.1rem);
+    line-height:1.35;
+  }
+  .about-grid .signoff{
+    margin-block-start:28px;
+    font-family:"Space Mono",monospace;
+    font-size:12px;
+    color:var(--ink-faint);
+    letter-spacing:0.06em;
+  }
+  .about-grid .measure{
+    margin-inline:auto;
+  }
+
+  /* Packages */
+  .pkg-table{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+  }
+  .pkg{
+    padding:36px 40px;
+    border-left:1px solid var(--line);
+  }
+  .pkg:first-child{ border-left:none; padding-left:0; }
+  .pkg:last-child{ padding-right:0; }
+  .pkg .eyebrow{ margin-block-end:14px; }
+  .pkg h3{ font-size:26px; margin-block-end:14px; }
+  .pkg p.desc{ color:var(--ink-soft); font-size:15px; max-width:42ch; margin-block-end:28px; }
+  .price-row{
+    display:flex; align-items:baseline; gap:10px;
+    margin-block-end:26px;
+    font-variant-numeric:tabular-nums;
+  }
+  .price-row .from{ font-family:"Space Mono",monospace; font-size:12px; color:var(--ink-faint); text-transform:uppercase; letter-spacing:0.1em; }
+  .price-row .amount{ font-family:"Fraunces",serif; font-size:34px; font-weight:440; }
+
+  /* Testimonials — message-bubble treatment */
+  .words-grid{
+    display:flex;
+    gap:40px;
+    overflow-x:auto;
+    scroll-snap-type:x proximity;
+    scroll-padding-left:1px;
+    padding-block-end:6px;
+    margin-block-end:-6px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .word{
+    flex:0 0 auto;
+    width:min(420px, 82vw);
+    scroll-snap-align:start;
+  }
+  .msg-row{
+    display:flex;
+    gap:14px;
+    align-items:flex-end;
+  }
+  .avatar{
+    width:36px; height:36px; flex-shrink:0;
+    border-radius:50%;
+    background:var(--surface-2);
+    border:1px solid var(--line);
+    color:var(--accent-ink);
+    font-family:"Space Mono",monospace;
+    font-size:13px;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .bubble-col{ flex:1; min-width:0; }
+  .bubble{
+    position:relative;
+    background:var(--surface);
+    border:1px solid var(--line);
+    border-radius:4px 18px 18px 18px;
+    padding:16px 20px;
+  }
+  .bubble::before{
+    content:"";
+    position:absolute; left:-7px; bottom:0;
+    width:14px; height:16px;
+    background:var(--surface);
+    border-left:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    border-bottom-left-radius:14px;
+    clip-path:polygon(100% 0, 100% 100%, 0 100%);
+  }
+  .bubble blockquote{
+    font-family:"Archivo",sans-serif;
+    font-weight:400;
+    font-size:15.5px;
+    line-height:1.55;
+    margin:0;
+    color:var(--ink);
+  }
+  .word .who{
+    display:flex; align-items:baseline; gap:8px;
+    margin:8px 0 8px 50px;
+  }
+  .word cite{
+    font-style:normal;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+  }
+  .word .role{
+    font-family:"Space Mono",monospace;
+    font-size:11px;
+    color:var(--ink-faint);
+    letter-spacing:0.04em;
+  }
+
+  /* Contact */
+  .contact-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:64px;
+    align-items:start;
+  }
+  form{ display:flex; flex-direction:column; gap:22px; }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  label{
+    display:block;
+    font-family:"Space Mono",monospace;
+    font-size:11px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    margin-block-end:8px;
+  }
+  input, textarea{
+    width:100%;
+    background:transparent;
+    border:none;
+    border-bottom:1px solid var(--line);
+    padding-block:10px;
+    font-family:"Archivo",sans-serif;
+    font-size:15px;
+    color:var(--ink);
+  }
+  input:focus-visible, textarea:focus-visible{
+    outline:none;
+    border-bottom-color:var(--accent);
+  }
+  textarea{ resize:vertical; min-height:90px; }
+  .submit{
+    align-self:flex-start;
+    margin-block-start:8px;
+    background:var(--accent-ink); color:var(--on-accent);
+    border:1px solid var(--accent-ink);
+    padding:14px 30px;
+    font-family:"Archivo",sans-serif;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .submit:hover{ background:var(--accent); border-color:var(--accent); }
+
+  .contact-side .eyebrow{ margin-block-end:14px; }
+  .contact-side h2{ font-size:clamp(1.7rem,3vw,2.2rem); margin-block-end:18px; }
+  .contact-side p{ color:var(--ink-soft); max-width:38ch; margin-block-end:28px; }
+  .contact-fact{
+    display:flex; justify-content:space-between;
+    padding-block:14px;
+    border-top:1px solid var(--line);
+    font-size:14px;
+  }
+  .contact-fact:last-child{ border-bottom:1px solid var(--line); }
+  .contact-fact span:first-child{ color:var(--ink-faint); }
+
+  /* Footer */
+  footer{
+    padding-block:48px 60px;
+    border-top:1px solid var(--line);
+  }
+  .foot-grid{
+    display:flex; justify-content:space-between; align-items:flex-end;
+    flex-wrap:wrap; gap:24px;
+  }
+  .foot-links{ display:flex; gap:22px; font-size:13px; }
+  .foot-links a{ text-decoration:none; color:var(--ink-soft); }
+  .foot-links a:hover{ color:var(--ink); }
+  .copyright{ font-family:"Space Mono",monospace; font-size:11px; color:var(--ink-faint); }
+
+  @media (max-width:860px){
+    .hero-grid, .contact-grid{ grid-template-columns:1fr; gap:36px; }
+    .work-grid{ grid-template-columns:1fr 1fr; }
+    .pkg-table{ grid-template-columns:1fr; }
+    .pkg{ border-left:none; border-top:1px solid var(--line); padding:32px 0; }
+    .pkg:first-child{ border-top:none; padding-top:0; }
+    .words-grid{ gap:24px; }
+    nav.links{ display:none; }
+    section{ padding-block:64px; }
+  }
+  @media (max-width:560px){
+    .work-grid{ grid-template-columns:1fr; }
+    .field-row{ grid-template-columns:1fr; }
+    .nav-cta{ padding:8px 12px; }
+  }
+</style>
+
+<header class="site">
+  <div class="nav">
+    <a href="#top" class="wordmark" style="text-decoration:none;">EVERLY MEDIA<small>WEDDING FILMS &middot; VANCOUVER, BC</small></a>
+    <nav class="links" aria-label="Primary">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#words">Words</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Enquire</a>
+  </div>
+</header>
+
+<div class="letterbox" role="presentation"></div>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero" style="border-top:none;">
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">Wedding Videography — Vancouver, BC</p>
+        <h1>A wedding day,<br>cut like a film.</h1>
+        <p class="lede">Pavlo directs and edits cinematic wedding films for couples who want their ceremony remembered the way it actually felt — not staged, not rushed.</p>
+        <div class="cta-row">
+          <a href="#work" class="btn primary">View the work</a>
+          <a href="#packages" class="btn ghost">See packages &amp; pricing</a>
+        </div>
+      </div>
+      <div class="frame" style="background-image:url('images/hero-featured.jpg')">
+        <video class="frame-video" preload="none" poster="images/hero-featured.jpg" playsinline webkit-playsinline>
+          <source src="videos/iryna-volodymyr.mp4" type="video/mp4">
+        </video>
+        <button class="frame-overlay" type="button" aria-label="Play preview of the featured wedding film">
+          <span class="corner tl"></span><span class="corner tr"></span>
+          <span class="corner bl"></span><span class="corner br"></span>
+          <span class="rec"><i></i>REC</span>
+          <span class="play" aria-hidden="true">
+            <svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1 1L13 8L1 15V1Z" fill="currentColor"/></svg>
+          </span>
+          <span class="tc">FEATURED FILM</span>
+          <span class="cap">TAP TO PLAY PREVIEW</span>
+        </button>
+        <a class="frame-ended" href="https://youtu.be/Rf0_p13m1ys" target="_blank" rel="noopener">Watch full film on YouTube ↗</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="letterbox" role="presentation"></div>
+
+  <!-- WORK -->
+  <section id="work">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Scene 01</p>
+          <h2>Recent work</h2>
+        </div>
+        <p class="meta-line measure">Three films, three different days — an elopement, a full wedding day, and a cross-cultural celebration.</p>
+      </div>
+      <div class="work-grid">
+        <article class="work-card">
+          <div class="frame" style="background-image:url('images/sylvia-matthew.jpg')">
+            <video class="frame-video" preload="none" poster="images/sylvia-matthew.jpg" playsinline webkit-playsinline>
+              <source src="videos/sylvia-matthew.mp4" type="video/mp4">
+            </video>
+            <button class="frame-overlay" type="button" aria-label="Play preview of Sylvia &amp; Matthew's film">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <span class="play" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1 1L13 8L1 15V1Z" fill="currentColor"/></svg></span>
+              <span class="tc">FILM 01</span>
+              <span class="cap">TAP TO PLAY PREVIEW</span>
+            </button>
+            <a class="frame-ended" href="https://youtu.be/YU35lbEiH1o" target="_blank" rel="noopener">Watch full film on YouTube ↗</a>
+          </div>
+          <h3>Sylvia &amp; Matthew</h3>
+          <p>Weaving together cultural elegance and natural beauty that created a timeless story of love and tradition.</p>
+        </article>
+        <article class="work-card">
+          <div class="frame" style="background-image:url('images/alina-volodymyr.jpg')">
+            <video class="frame-video" preload="none" poster="images/alina-volodymyr.jpg" playsinline webkit-playsinline>
+              <source src="videos/alina-volodymyr.mp4" type="video/mp4">
+            </video>
+            <button class="frame-overlay" type="button" aria-label="Play preview of Alina &amp; Volodymyr's elopement film">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <span class="play" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1 1L13 8L1 15V1Z" fill="currentColor"/></svg></span>
+              <span class="tc">RUNTIME 03:00</span>
+              <span class="cap">TAP TO PLAY PREVIEW</span>
+            </button>
+            <a class="frame-ended" href="https://youtu.be/HuIT28DGZD8" target="_blank" rel="noopener">Watch full film on YouTube ↗</a>
+          </div>
+          <h3>Alina &amp; Volodymyr — Elopement</h3>
+          <p>An intimate elopement film highlighting a heartfelt ceremony followed by a joyful celebration with close friends.</p>
+        </article>
+        <article class="work-card">
+          <div class="frame" style="background-image:url('images/iryna-volodymyr.jpg')">
+            <video class="frame-video" preload="none" poster="images/iryna-volodymyr.jpg" playsinline webkit-playsinline>
+              <source src="videos/iryna-volodymyr.mp4" type="video/mp4">
+            </video>
+            <button class="frame-overlay" type="button" aria-label="Play preview of Iryna &amp; Volodymyr's wedding day film">
+              <span class="corner tl"></span><span class="corner tr"></span>
+              <span class="corner bl"></span><span class="corner br"></span>
+              <span class="play" aria-hidden="true"><svg width="14" height="16" viewBox="0 0 14 16" fill="none"><path d="M1 1L13 8L1 15V1Z" fill="currentColor"/></svg></span>
+              <span class="tc">COVERAGE 08HR</span>
+              <span class="cap">TAP TO PLAY PREVIEW</span>
+            </button>
+            <a class="frame-ended" href="https://youtu.be/Rf0_p13m1ys" target="_blank" rel="noopener">Watch full film on YouTube ↗</a>
+          </div>
+          <h3>Iryna &amp; Volodymyr — Wedding Day</h3>
+          <p>A lively wedding film showcasing a day full of connection, celebration, and beauty — a meaningful vow exchange, festive gathering, and eye-catching details.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="wrap about-grid">
+      <div>
+        <p class="eyebrow">Scene 02 — About</p>
+        <blockquote>&ldquo;My goal is to bring creativity, professionalism, and heart to every wedding day.&rdquo;</blockquote>
+        <p class="signoff">— PAVLO, FOUNDER &amp; DIRECTOR, EVERLY MEDIA</p>
+        <p class="measure" style="margin-block-start:28px; color:var(--ink-soft);">
+          I'm a wedding videographer based in Vancouver, BC. At Everly Media, I specialize in capturing
+          authentic, emotional moments that couples will cherish for a lifetime. With a cinematic approach
+          and an eye for detail, I transform each love story into a timeless film — from intimate elopements
+          to grand celebrations.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PACKAGES -->
+  <section id="packages">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Scene 03</p>
+          <h2>Packages</h2>
+        </div>
+        <p class="meta-line measure">Two starting points — every film is scoped to the day itself.</p>
+      </div>
+      <div class="pkg-table">
+        <div class="pkg">
+          <p class="eyebrow">Short Film</p>
+          <h3>Elopement Film</h3>
+          <p class="desc">Capture the essence of your ceremony with a beautifully crafted short film, up to 3 minutes long, that highlights your most intimate and unforgettable moments. A timeless keepsake you'll cherish forever.</p>
+          <div class="price-row"><span class="from">Starting at</span><span class="amount">$549</span></div>
+          <a href="#contact" class="btn ghost">Enquire about this package</a>
+        </div>
+        <div class="pkg">
+          <p class="eyebrow">Full Coverage</p>
+          <h3>Wedding Day</h3>
+          <p class="desc">Relive your wedding day with a full-length film that captures every meaningful moment — from the ceremony to the reception — with up to 8 hours of coverage, a cinematic story of your celebration in every detail.</p>
+          <div class="price-row"><span class="from">Starting at</span><span class="amount">$1,249</span></div>
+          <a href="#contact" class="btn ghost">Enquire about this package</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORDS -->
+  <section id="words">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Scene 04</p>
+          <h2>Words from couples</h2>
+        </div>
+      </div>
+      <div class="words-grid">
+        <div class="word">
+          <div class="msg-row">
+            <div class="avatar" aria-hidden="true">S</div>
+            <div class="bubble-col">
+              <div class="bubble">
+                <blockquote>My husband couldn't help but tear up when we first watched the video. It is very well done. We are so grateful we had Everly Media part of our special day.</blockquote>
+              </div>
+            </div>
+          </div>
+          <p class="who"><cite>Sylvia</cite><span class="role">Wedding film client</span></p>
+        </div>
+        <div class="word">
+          <div class="msg-row">
+            <div class="avatar" aria-hidden="true">A</div>
+            <div class="bubble-col">
+              <div class="bubble">
+                <blockquote>Watching our elopement video back, we felt like we were reliving the whole day all over again — every little moment, exactly how it felt. Pavlo made us feel so comfortable in front of the camera. Thank you for capturing it so beautifully!</blockquote>
+              </div>
+            </div>
+          </div>
+          <p class="who"><cite>Alina</cite><span class="role">Elopement film client</span></p>
+        </div>
+        <div class="word">
+          <div class="msg-row">
+            <div class="avatar" aria-hidden="true">I</div>
+            <div class="bubble-col">
+              <div class="bubble">
+                <blockquote>I couldn't believe how professional our video was. Plus, the communication was absolutely top-notch. Highly recommend to future couples.</blockquote>
+              </div>
+            </div>
+          </div>
+          <p class="who"><cite>Iryna</cite><span class="role">Wedding film client</span></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-side">
+        <p class="eyebrow">Scene 05 — Get in touch</p>
+        <h2>Let's make memories.</h2>
+        <p>Tell me a bit about your day and I'll follow up to talk timing, coverage, and the right package.</p>
+        <div>
+          <div class="contact-fact"><span>Based in</span><span>Vancouver, BC</span></div>
+          <div class="contact-fact"><span>Typical reply time</span><span>Same day</span></div>
+          <div class="contact-fact"><span>Booking window</span><span>Reserve 6–12 months out</span></div>
+        </div>
+      </div>
+      <form autocomplete="on">
+        <div class="field-row">
+          <div>
+            <label for="fname">First name</label>
+            <input id="fname" name="fname" type="text" required>
+          </div>
+          <div>
+            <label for="lname">Last name</label>
+            <input id="lname" name="lname" type="text" required>
+          </div>
+        </div>
+        <div>
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div>
+          <label for="phone">Phone number</label>
+          <input id="phone" name="phone" type="tel" required>
+        </div>
+        <div>
+          <label for="details">Tell me more about your event</label>
+          <textarea id="details" name="details" rows="4"></textarea>
+        </div>
+        <button type="submit" class="submit">Send enquiry</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<div class="letterbox" role="presentation"></div>
+
+<footer>
+  <div class="wrap foot-grid">
+    <div>
+      <p class="wordmark">EVERLY MEDIA</p>
+      <p class="copyright" style="margin-block-start:6px;">© <span id="yr"></span> Everly Media. Based in Vancouver, BC.</p>
+    </div>
+    <nav class="foot-links" aria-label="Footer">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#packages">Packages</a>
+      <a href="#words">Words</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</footer>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Everly Media",
+  "url": "https://www.everlymedia.ca",
+  "description": "Cinematic wedding videography by Pavlo, based in Vancouver, BC.",
+  "areaServed": "Vancouver, BC",
+  "priceRange": "$549-$1249",
+  "founder": {
+    "@type": "Person",
+    "name": "Pavlo"
+  },
+  "makesOffer": [
+    {
+      "@type": "Offer",
+      "name": "Elopement Film",
+      "price": "549",
+      "priceCurrency": "CAD",
+      "description": "A short wedding film up to 3 minutes long."
+    },
+    {
+      "@type": "Offer",
+      "name": "Wedding Day",
+      "price": "1249",
+      "priceCurrency": "CAD",
+      "description": "A full wedding day film with up to 8 hours of coverage."
+    }
+  ]
+}
+</script>
+
+<script>
+  document.getElementById('yr').textContent = new Date().getFullYear();
+  document.querySelector('form').addEventListener('submit', function(e){
+    e.preventDefault();
+    var btn = this.querySelector('.submit');
+    btn.textContent = 'This is a design mockup — connect the form to send';
+  });
+
+  document.querySelectorAll('.frame-overlay').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var frame = btn.closest('.frame');
+      var video = frame ? frame.querySelector('.frame-video') : null;
+      if(!video) return;
+      // Pause any other frame that's already playing.
+      document.querySelectorAll('.frame.is-playing').forEach(function(other){
+        if(other !== frame){
+          other.classList.remove('is-playing', 'is-ended');
+          var v = other.querySelector('.frame-video');
+          if(v){ v.pause(); v.removeAttribute('controls'); }
+        }
+      });
+      frame.classList.remove('is-ended');
+      frame.classList.add('is-playing');
+      video.setAttribute('controls', '');
+      video.play().catch(function(){ /* autoplay-with-sound can be blocked; controls still let the visitor press play */ });
+    });
+  });
+
+  document.querySelectorAll('.frame-video').forEach(function(video){
+    var frame = video.closest('.frame');
+    if(!frame) return;
+    video.addEventListener('ended', function(){ frame.classList.add('is-ended'); });
+    video.addEventListener('play', function(){ frame.classList.remove('is-ended'); });
+  });
+</script>
