@@ -475,6 +475,16 @@
     cursor:pointer;
   }
   .submit:hover{ background:var(--accent); border-color:var(--accent); }
+  .submit:disabled{ opacity:0.6; cursor:default; }
+  .form-status{
+    font-family:"Space Mono",monospace;
+    font-size:12.5px;
+    letter-spacing:0.02em;
+    margin-block-start:4px;
+    min-height:1.2em;
+  }
+  .form-status.is-success{ color:var(--accent-ink); }
+  .form-status.is-error{ color:#b3432b; }
 
   .contact-side .eyebrow{ margin-block-end:14px; }
   .contact-side h2{ font-size:clamp(1.7rem,3vw,2.2rem); margin-block-end:18px; }
@@ -788,7 +798,8 @@
           <div class="contact-fact"><span>Booking window</span><span>Reserve 6–12 months out</span></div>
         </div>
       </div>
-      <form autocomplete="on">
+      <form autocomplete="on" id="contact-form">
+        <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field-row">
           <div>
             <label for="fname">First name</label>
@@ -812,6 +823,7 @@
           <textarea id="details" name="details" rows="4"></textarea>
         </div>
         <button type="submit" class="submit">Send enquiry</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
       </form>
     </div>
   </section>
@@ -889,10 +901,45 @@
       if(e.key === 'Escape') setOpen(false);
     });
   })();
-  document.querySelector('form').addEventListener('submit', function(e){
+  document.getElementById('contact-form').addEventListener('submit', function(e){
     e.preventDefault();
-    var btn = this.querySelector('.submit');
-    btn.textContent = 'This is a design mockup — connect the form to send';
+    var form = this;
+    var btn = form.querySelector('.submit');
+    var status = form.querySelector('.form-status');
+    var originalText = btn.textContent;
+
+    var fname = form.fname.value.trim();
+    var lname = form.lname.value.trim();
+
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    status.textContent = '';
+    status.className = 'form-status';
+
+    var formData = new FormData(form);
+    formData.append('subject', 'Wedding film enquiry — ' + fname + ' ' + lname);
+
+    fetch('/api/contact', {
+      method: 'POST',
+      body: formData
+    })
+      .then(function(res){ return res.json(); })
+      .then(function(data){
+        if(data.success){
+          btn.textContent = 'Sent';
+          status.textContent = 'Thanks, ' + fname + ' — I\'ll be in touch soon.';
+          status.className = 'form-status is-success';
+          form.reset();
+        } else {
+          throw new Error(data.message || 'Submission failed');
+        }
+      })
+      .catch(function(){
+        btn.disabled = false;
+        btn.textContent = originalText;
+        status.textContent = 'Something went wrong sending that — please try again, or email helloeverlymedia@gmail.com directly.';
+        status.className = 'form-status is-error';
+      });
   });
 
   document.querySelectorAll('.frame-overlay').forEach(function(btn){
