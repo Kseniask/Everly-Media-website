@@ -799,6 +799,7 @@
         </div>
       </div>
       <form autocomplete="on" id="contact-form">
+        <input type="hidden" name="access_key" value="e6ab7730-913a-4786-94eb-c96b73c72f99">
         <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off">
         <div class="field-row">
           <div>
@@ -919,8 +920,9 @@
     var formData = new FormData(form);
     formData.append('subject', 'Wedding film enquiry — ' + fname + ' ' + lname);
 
-    fetch('/api/contact', {
+    fetch('https://api.web3forms.com/submit', {
       method: 'POST',
+      headers: { Accept: 'application/json' },
       body: formData
     })
       .then(function(res){ return res.json(); })
